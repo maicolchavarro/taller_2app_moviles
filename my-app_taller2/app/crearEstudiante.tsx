@@ -1,14 +1,25 @@
-import { View, TextInput, Button, Alert } from "react-native";
-import { useState } from "react";
+import { View, TextInput, Button, Alert, Text } from "react-native";
+import { useEffect, useState } from "react";
 import { crearEstudiante } from "../database/database/db";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
 export default function Crear(){
+
+const {programaCod}=useLocalSearchParams<{programaCod?:string | string[]}>();
 
 const [codigo,setCodigo]=useState("");
 const [nombre,setNombre]=useState("");
 const [email,setEmail]=useState("");
 const [programa,setPrograma]=useState("");
+
+const programaDesdeRuta = Array.isArray(programaCod) ? programaCod[0] : programaCod;
+const programaFijado = (programaDesdeRuta ?? "").trim();
+
+useEffect(()=>{
+if(programaFijado !== ""){
+setPrograma(programaFijado);
+}
+},[programaFijado]);
 
 const guardar=()=>{
 const codigoLimpio = codigo.trim();
@@ -51,27 +62,39 @@ style={{
 
 <View style={{width:"100%",maxWidth:360}}>
 
+{programaFijado !== "" ? (
+<Text style={{marginBottom:10,textAlign:"center"}}>
+Registrando estudiante para el programa: {programaFijado}
+</Text>
+) : null}
+
 <TextInput
 placeholder="Codigo"
+placeholderTextColor="#000"
 onChangeText={setCodigo}
 style={{borderWidth:1,paddingHorizontal:10,paddingVertical:8}}
 />
 
 <TextInput
 placeholder="Nombre"
+placeholderTextColor="#000"
 onChangeText={setNombre}
 style={{borderWidth:1,marginTop:10,paddingHorizontal:10,paddingVertical:8}}
 />
 
 <TextInput
 placeholder="Email"
+placeholderTextColor="#000"
 onChangeText={setEmail}
 style={{borderWidth:1,marginTop:10,paddingHorizontal:10,paddingVertical:8}}
 />
 
 <TextInput
-placeholder="Programa Cod (opcional)"
+placeholder={programaFijado !== "" ? "Programa seleccionado" : "Programa Cod (opcional)"}
+placeholderTextColor="#000"
 onChangeText={setPrograma}
+value={programa}
+editable={programaFijado === ""}
 style={{borderWidth:1,marginTop:10,paddingHorizontal:10,paddingVertical:8}}
 />
 

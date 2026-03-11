@@ -64,6 +64,7 @@ padding:20
 
 <TextInput
 placeholder="Buscar por codigo o nombre"
+placeholderTextColor="#000"
 onChangeText={setTexto}
 style={{borderWidth:1,marginBottom:10,paddingHorizontal:10,paddingVertical:8}}
 />

@@ -158,6 +158,20 @@ export const obtenerEstudiantes = () => {
 
 };
 
+/* Obtener estudiantes por programa */
+
+export const obtenerEstudiantesPorPrograma = (programaCod:string) => {
+
+  return db.getAllSync(
+    `SELECT codigo, nombre, email, programa_cod
+     FROM estudiantes
+     WHERE programa_cod = ?
+     ORDER BY nombre`,
+    [programaCod]
+  );
+
+};
+
 
 /* Buscar estudiante */
 

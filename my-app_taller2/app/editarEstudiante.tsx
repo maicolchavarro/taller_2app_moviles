@@ -61,12 +61,14 @@ style={{
 
 <TextInput
 placeholder="Nuevo nombre"
+placeholderTextColor="#000"
 onChangeText={setNombre}
 style={{borderWidth:1,paddingHorizontal:10,paddingVertical:8}}
 />
 
 <TextInput
 placeholder="Nuevo programa"
+placeholderTextColor="#000"
 onChangeText={setPrograma}
 style={{borderWidth:1,marginTop:10,paddingHorizontal:10,paddingVertical:8}}
 />
